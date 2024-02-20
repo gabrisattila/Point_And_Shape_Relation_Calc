@@ -12,52 +12,23 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
 
         private List<Section> borders;
 
-        private Point maxPoint;
-
-        private Point minPoint;
+        private double biggestDistanceInsidePolygon;
 
         public List<Point> Points { get { return points; } set { points = value; } }
 
         public List<Section> Borders { get { return borders; } private set { borders = value; } }
 
-        public Point Max
+        public double BiggestDistance
         {
-            get { return maxPoint; }
-            private set { maxPoint = value; }
-        }
-
-        public Point Min
-        {
-            get { return minPoint; }
-            private set { minPoint = value; }
+            get { return biggestDistanceInsidePolygon; }
+            private set { biggestDistanceInsidePolygon = value;}
         }
 
         public Polygon(List<Point> points)
         {
             Points = points;
             generateBorders();
-        }
-
-
-        private void setMinMax()
-        {
-            Point max = points[0], min = points[0];
-
-            foreach (Point point in points)
-            {
-                if (point < min)
-                {
-                    min = point;
-                }
-
-                if (point > max)
-                {
-                    max = point;
-                }
-            }
-
-            Min = min;
-            Max = max;
+            setBiggest();
         }
 
 
@@ -68,6 +39,22 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
             for (int i = 1; i < points.Count; i++)
             {
                 borders.Add(new Section(points[i - 1], points[i]));
+            }
+        }
+
+        private void setBiggest()
+        {
+            BiggestDistance = 0;
+
+            for (int i = 0; i < Points.Count; i++)
+            {
+                for (int j = 0; j < Points.Count; j++)
+                {
+                    if (i != j && Points[i] - Points[j] > BiggestDistance)
+                    {
+                        BiggestDistance = Points[i] - Points[j];
+                    }
+                }
             }
         }
     }

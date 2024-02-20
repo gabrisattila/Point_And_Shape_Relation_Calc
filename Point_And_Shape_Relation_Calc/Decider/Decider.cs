@@ -48,17 +48,57 @@ namespace Point_And_Shape_Relation_Calc.Decider
 
         private bool isPointInPolygon(Point point, Polygon polygon)
         {
-            throw new NotImplementedException();
+            if (polygon.Points.Contains(point))
+            {
+                return true;
+            }
+
+            Section sectionFromPoint = drawLineTowardsPolygon(point, polygon);
+
+            int intersections = countIntersections(sectionFromPoint, polygon);
+
+            return intersections % 2 == 1;
         }
 
         private Section drawLineTowardsPolygon(Point point, Polygon polygon)
         {
-            throw new NotImplementedException();
+            Point otherPointOfSection, closestPointFromPolygon = getClosestPointFromPolygon(point, polygon);
+
+            otherPointOfSection = closestPointFromPolygon * (polygon.BiggestDistance + 1);
+
+            return new Section(point, otherPointOfSection);
+        }
+
+        private Point getClosestPointFromPolygon(Point point, Polygon polygon)
+        {
+            Point closest = null;
+            int xDistance = Int32.MaxValue, yDistance = Int32.MaxValue;
+
+            foreach (Point polygonPoint in polygon.Points)
+            {
+                if (point.X - polygonPoint.X < xDistance && 
+                    point.Y - polygonPoint.Y < yDistance)
+                {
+                    closest = polygonPoint;
+                }
+            }
+
+            return closest;
         }
 
         private int countIntersections(Section section, Polygon polygon)
         {
-            throw new NotImplementedException();
+            int intersections = 0;
+
+            foreach (Section s in polygon.Borders)
+            {
+                if (Section.isTwoSectionCrossEachOther(section, s))
+                {
+                    intersections++;
+                }
+            }
+
+            return intersections;
         }
 
     }

@@ -21,6 +21,7 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Read
         public ReadXml(String path)
         {
             Path = path;
+            fillPointListBase();
         }
 
         private void fillPointListBase()

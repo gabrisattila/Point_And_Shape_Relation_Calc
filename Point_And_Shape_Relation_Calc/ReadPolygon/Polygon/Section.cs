@@ -25,14 +25,9 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
 
         public static bool isTwoSectionCrossEachOther(Section section1, Section section2)
         {
-            return false;
+            return (section1.a < section2.a && section1.b > section2.b) ||
+                   (section1.a > section2.a && section1.b < section2.b);
         }
 
-
-
-        public bool isPointOnThatBorder(Point p)
-        {
-            return (B.Y - A.Y) * (p.X - A.X) == (B.X - A.X) * (p.Y - A.Y);
-        }
     }
 }
