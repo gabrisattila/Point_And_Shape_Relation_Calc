@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
 {
@@ -20,6 +21,30 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
         {
             X = x;
             Y = y;
+        }
+
+        public static bool operator <(Point p1, Point p2)
+        {
+            return (p1.X < p2.X && p1.Y < p2.Y) || 
+                   (p1.X < p2.X && p1.Y == p2.Y) || 
+                   (p1.X == p2.X && p1.Y < p2.Y);
+        }
+
+        public static bool operator >(Point p1, Point p2)
+        {
+            return (p1.X > p2.X && p1.Y > p2.Y) ||
+                   (p1.X > p2.X && p1.Y == p2.Y) ||
+                   (p1.X == p2.X && p1.Y > p2.Y);
+        }
+
+        public static bool operator ==(Point p1, Point p2)
+        {
+            return p1.X == p2.X && p1.Y == p2.Y;
+        }
+
+        public static bool operator !=(Point p1, Point p2)
+        {
+            return p1.X != p2.X && p1.Y != p2.Y;
         }
     }
 }

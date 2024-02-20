@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
 {
-    public class Border
+    public class Section
     {
         private Point a;
 
@@ -16,11 +16,19 @@ namespace Point_And_Shape_Relation_Calc.ReadPolygon.Polygon
 
         public Point B { get { return b; } set { b = value; } }
 
-        public Border(Point a, Point b)
+
+        public Section(Point a, Point b)
         {
             A = a;
             B = b;
         }
+
+        public static bool isTwoSectionCrossEachOther(Section section1, Section section2)
+        {
+            return false;
+        }
+
+
 
         public bool isPointOnThatBorder(Point p)
         {
